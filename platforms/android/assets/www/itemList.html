@@ -1,0 +1,51 @@
+<ion-view>
+  <ion-side-menus>
+    <!-- Left menu -->
+    <ion-side-menu side="left">
+      <ion-list>
+        <ion-item menu-close ng-click="addNewItem()">
+          New item
+        </ion-item>
+        <ion-item menu-close ng-click="logout()">
+          Logout
+        </ion-item>
+        <ion-item menu-close ng-click="deleteAccount()">
+          Delete account
+        </ion-item>
+      </ion-list>
+    </ion-side-menu>
+
+    <ion-side-menu-content>
+      <ion-header-bar class="bar-positive">
+        <div class="buttons">
+          <button class="button button-icon icon ion-navicon-round"
+                  ng-click="toggleSideMenu()"></button>
+        </div>
+        <h1 class="title">Notepad App</h1>
+        <div class="buttons">
+          <button class="button button-icon icon ion-ios-minus-outline"
+                  ng-click="data.showDelete = !data.showDelete;"></button>
+        </div>
+      </ion-header-bar>
+      <ion-content>
+        <ion-refresher
+          pulling-text="Pull to refresh..."
+          on-refresh="reloadNotes()">
+        </ion-refresher>
+        <ion-list show-delete="data.showDelete">
+          <ion-item ng-repeat="item in items" item="item" href="#/item/{{item._id}}" class="item-remove-animate">
+
+            <p></p><span>{{item.amount}} x {{item.name}}</span>
+            <span style="float:right">Total: {{item.price*item.amount}}$</span>
+            </p>
+            <p>
+              <span>{{item.price}}$</span>
+              <span style="float:right">{{item.store}}</span>
+            </p>
+            <ion-delete-button class="ion-minus-circled" ng-click="deleteItem(item)"/>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu-content>
+  </ion-side-menus>
+</ion-view>

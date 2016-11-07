@@ -1,0 +1,9 @@
+{
+  "name": "grocery-app",
+  "gulpStartupTasks": [
+    "sass",
+    "index",
+    "watch"
+  ],
+  "app_id": "c729fd98"
+}
