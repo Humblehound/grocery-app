@@ -7,7 +7,7 @@ angular.module('starter.services', [])
         if (ionic.Platform.isAndroid()) {
           return window.device.uuid;
         } else {
-          return ionic.Platform.platform();
+          return "linux2"
         }
       }
     }
@@ -95,7 +95,7 @@ angular.module('starter.services', [])
 
     var _get = function (itemId) {
       var deltas = $localStorage.localDeltas.filter(function (delta) {
-        return delta.device == Variables.deviceId() && delta.item == itemId;
+        return delta.item == itemId;
       });
 
       var myTotal = 0;

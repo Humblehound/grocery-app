@@ -74,6 +74,7 @@ angular.module('starter.controllers', [])
       Item.query({userId: userId}, function (data) {
         $scope.items = data;
         for (var i in $scope.items){
+          StorageService.sync($scope.items[i])
           $scope.items[i].amount = StorageService.get($scope.items[i]._id)
         }
 
