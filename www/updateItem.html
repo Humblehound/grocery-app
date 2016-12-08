@@ -1,0 +1,65 @@
+<ion-view>
+  <ion-header-bar class="bar-positive">
+    <div class="buttons">
+      <button class="button button-icon icon ion-arrow-left-c" ng-click="back()"></button>
+    </div>
+    <h1 class="title">{{title}}</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <label class="item">
+        <span class="input-label">Product Name</span>
+        <span class="input-label">{{item.name}}</span>
+      </label>
+      <label class="item">
+        <span class="input-label">Store</span>
+        <span class="input-label">{{item.store}}</span>
+      </label>
+      <label class="item">
+        <span class="input-label">Price</span>
+        <span class="input">{{item.price}}$</span>
+      </label>
+      <label class="item">
+        <span class="input-label">Amount</span>
+        <span class="pull-right">{{amount}}</span>
+      </label>
+    </div>
+
+    <div style="text-align: center;">
+      <button ng-click="increase()" class="button button-balanced button-positive" style="padding-right: 40px; padding-left: 40px">
+        Increase Amount
+      </button>
+      <button ng-click="decrease()" class="button button-balanced button-positive" style="margin-left:20px;padding-right: 40px; padding-left: 40px">
+        Decrease Amount
+      </button>
+      <button ng-click="sync()" class="button button-balanced button-positive" style="margin-left:20px;padding-right: 40px; padding-left: 40px">
+        Synchronize
+      </button>
+    </div>
+
+  </ion-content>
+
+  <script id="error-list.html" type="text/ng-template">
+    <div class="error" ng-message="required">
+      <i class="ion-information-circled"></i>
+      This field is required!
+    </div>
+    <div class="error" ng-message="minlength">
+      <i class="ion-information-circled"></i>
+      Minimum length of this field is 5 characters!
+    </div>
+    <div class="error" ng-message="maxlength">
+      <i class="ion-information-circled"></i>
+      Maximum length of this field is 20 characters!
+    </div>
+    <div class="error" ng-message="pattern">
+      <i class="ion-information-circled"></i>
+      Invalid number
+    </div>
+    <div class="error" ng-message="number">
+      <i class="ion-information-circled"></i>
+      Invalid number
+    </div>
+  </script>
+</ion-view>
+
