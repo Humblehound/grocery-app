@@ -73,7 +73,10 @@ angular.module('starter.controllers', [])
       $http.defaults.headers.common['x-access-token'] = token;
       Item.query({userId: userId}, function (data) {
         $scope.items = data;
-        for (var i in $scope.items){
+        console.log($scope.items)
+        for (var i = 0; i < $scope.items.length; i++)
+        {
+          StorageService.sync($scope.items[i])
           $scope.items[i].amount = StorageService.get($scope.items[i]._id)
         }
 
