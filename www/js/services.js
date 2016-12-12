@@ -2,12 +2,12 @@ angular.module('starter.services', [])
 
   .factory('Variables', function () {
     return {
-      serverAddress: 'http://192.168.0.223:8080/',
+      serverAddress: 'http://grocery-servnamespace.rhcloud.com:8000/',
       deviceId: function () {
         if (ionic.Platform.isAndroid()) {
-          return window.device.uuid;
+          return ionic.Platform.device().uuid;
         } else {
-          return "linux2"
+          return ionic.Platform.platform()
         }
       }
     }

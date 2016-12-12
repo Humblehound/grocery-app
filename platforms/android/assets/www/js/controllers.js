@@ -1,20 +1,11 @@
 angular.module('starter.controllers', [])
 
-  .controller('ItemController', function ($scope, $state, Item, $http, $stateParams) {
+  .controller('ItemController', function ($scope, $state, Item, $http) {
 
-    if ($stateParams.id != "") {
-      $http.defaults.headers.common['x-access-token'] = sessionStorage.getItem("token");
-      $scope.item = Item.get({id: $stateParams.id});
-      $scope.title = "Edit item";
-      $scope.action = function (item) {
-        Item.update({id: item._id}, item);
-      }
-    } else {
-      $scope.title = "New item";
-      $scope.item = {};
-      $scope.action = function (item) {
-        Item.save(item);
-      }
+    $scope.title = "New item";
+    $scope.item = {};
+    $scope.action = function (item) {
+      Item.save(item);
     }
 
     $scope.back = function () {
@@ -27,13 +18,44 @@ angular.module('starter.controllers', [])
         var userId = sessionStorage.getItem("userId");
         $http.defaults.headers.common['x-access-token'] = token;
         $scope.item.owner = userId;
+        $scope.item.amount = 0;
         $scope.action($scope.item);
         $state.go('itemList', {}, {reload: true});
       }
     };
   })
 
-  .controller('ItemListController', function ($scope, $http, $ionicPopup, $state, $stateParams, $ionicHistory, $resource, $ionicSideMenuDelegate, Notification, User, Item) {
+  .controller('UpdateItemController', function ($scope, $state, Item, $http, $stateParams, StorageService) {
+    if ($stateParams.id != "") {
+      $http.defaults.headers.common['x-access-token'] = sessionStorage.getItem("token");
+      $scope.item = Item.get({id: $stateParams.id}, function () {
+        $scope.amount = StorageService.get($scope.item._id)
+      });
+      $scope.title = "Edit item";
+      $scope.edit = true;
+    }
+
+    $scope.back = function () {
+      $state.go('itemList', {}, {reload: true});
+    };
+
+    $scope.increase = function () {
+      StorageService.increase($scope.item._id);
+      $scope.amount = StorageService.get($scope.item._id)
+    };
+
+    $scope.decrease = function () {
+      StorageService.decrease($scope.item._id);
+      $scope.amount = StorageService.get($scope.item._id)
+    };
+
+    $scope.sync = function () {
+      $scope.amount = StorageService.sync($scope.item)
+      $scope.amount = StorageService.get($scope.item._id)
+    }
+  })
+
+  .controller('ItemListController', function ($scope, $http, $ionicPopup, $state, $stateParams, $ionicHistory, $resource, $ionicSideMenuDelegate, Notification, User, Item, StorageService) {
 
     $scope.data = {
       showDelete: false
@@ -50,7 +72,11 @@ angular.module('starter.controllers', [])
       var userId = sessionStorage.getItem("userId");
       $http.defaults.headers.common['x-access-token'] = token;
       Item.query({userId: userId}, function (data) {
-        $scope.items = data
+        $scope.items = data;
+        for (var i in $scope.items){
+          $scope.items[i].amount = StorageService.get($scope.items[i]._id)
+        }
+
       })
     };
 

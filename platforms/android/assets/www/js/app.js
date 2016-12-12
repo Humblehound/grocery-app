@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter.services', 'ngResource', 'ionic-numberpicker', 'ngMessages'])
+angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter.services', 'ngResource', 'ngStorage', 'ionic-numberpicker', 'ngMessages'])
 
   .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -49,9 +49,14 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter
         controller: 'ItemListController',
         cache: false
       }).state('item', {
-      url: '/item/{id}',
+      url: '/item',
       templateUrl: 'item.html',
       controller: 'ItemController',
+      cache: false
+    }).state('updateItem', {
+      url: '/item/{id}',
+      templateUrl: 'updateItem.html',
+      controller: 'UpdateItemController',
       cache: false
     });
 
